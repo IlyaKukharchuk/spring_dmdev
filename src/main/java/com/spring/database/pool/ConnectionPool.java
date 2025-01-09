@@ -22,4 +22,8 @@ public class ConnectionPool {
         this.args = args;
         this.properties = properties;
     }
+
+    private void init() {
+        System.out.println("Init connection pool!!!!");
+    }
 }

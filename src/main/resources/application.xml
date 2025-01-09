@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="pool" name="p1,p2,p3" class="com.spring.database.pool.ConnectionPool">
+    <!--    создаёт бин с application.properties автоматически-->
+    <context:property-placeholder location="classpath:application.properties"/>
+
+
+    <bean id="pool" name="p1,p2,p3" class="com.spring.database.pool.ConnectionPool"
+        init-method="init"
+        scope="singleton">
         <constructor-arg value="postgres" name="username"/>
         <constructor-arg value="10" name="poolSize"/>
         <constructor-arg type="java.util.List" name="args" >

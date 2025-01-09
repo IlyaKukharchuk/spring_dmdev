@@ -1,4 +1,4 @@
-package com.spring.ioc;
+package com.ilya.spring.ioc;
 
 public class Container {
     public <T> T get(Class<T> clazz){

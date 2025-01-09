@@ -1,7 +1,7 @@
-package com.spring.service;
+package com.ilya.spring.service;
 
-import com.spring.database.CompanyRepository;
-import com.spring.database.UserRepository;
+import com.ilya.spring.database.UserRepository;
+import com.ilya.spring.database.CompanyRepository;
 
 public class CompanyService {
     private final UserRepository userRepository;

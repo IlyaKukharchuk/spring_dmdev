@@ -1,6 +1,6 @@
-package com.spring.database;
+package com.ilya.spring.database;
 
-import com.spring.database.pool.ConnectionPool;
+import com.ilya.spring.database.pool.ConnectionPool;
 
 public class UserRepository {
     private final ConnectionPool connectionPool;

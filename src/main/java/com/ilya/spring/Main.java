@@ -1,14 +1,14 @@
-package com.spring;
+package com.ilya.spring;
 
-import com.spring.database.CompanyRepository;
-import com.spring.database.pool.ConnectionPool;
+import com.ilya.spring.database.pool.ConnectionPool;
+import com.ilya.spring.database.CompanyRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
         var context = new ClassPathXmlApplicationContext("application.xml");
 
-        var connectionPool = context.getBean("p1",ConnectionPool.class);
+        var connectionPool = context.getBean("p1", ConnectionPool.class);
         System.out.println("p1: " + connectionPool);
         var connectionPool2 = context.getBean("p2",ConnectionPool.class);
         System.out.println("p2: " + connectionPool2);

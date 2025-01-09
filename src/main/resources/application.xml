@@ -2,17 +2,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+                            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--    создаёт бин с application.properties автоматически-->
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <bean class="com.ilya.spring.beanfactorypostprocessors.LogBeanFactoryPostProcessor"/>
+    <bean class="com.ilya.spring.beanfactorypostprocessors.VerifyPropertyBeanFactoryPostProcessor"/>
 
-    <bean id="pool" name="p1,p2,p3" class="com.spring.database.pool.ConnectionPool"
+    <bean id="driver" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="${db.driver}"/>
+    </bean>
+
+    <bean id="pool" name="p1,p2,p3" class="com.ilya.spring.database.pool.ConnectionPool"
         init-method="init"
         scope="singleton">
-        <constructor-arg value="postgres" name="username"/>
-        <constructor-arg value="10" name="poolSize"/>
+        <constructor-arg value="${db.username}" name="username"/>
+        <constructor-arg value="${db.pool.size}" name="poolSize"/>
         <constructor-arg type="java.util.List" name="args" >
             <list>
                 <value>--arg1=value1</value>
@@ -27,11 +36,15 @@
             <map>
                 <entry key="url" value="postgresurl"></entry>
                 <entry key="password" value="123"></entry>
+                <entry key="driver" value-ref="driver"/>
+                <entry key="test" value="#{driver.length() > 10}"/>
+                <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>
+                <entry key="currentUser" value="${user.name}"/>
             </map>
         </property>
     </bean>
 
-    <bean id="companyRepository" class="com.spring.database.CompanyRepository" factory-method="of">
+    <bean id="companyRepository" class="com.ilya.spring.database.CompanyRepository" factory-method="of">
         <constructor-arg ref="pool"/>
     </bean>
 </beans>

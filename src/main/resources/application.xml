@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="pool" name="p1,p2,p3" class="com.spring.database.pool.ConnectionPool">
+        <constructor-arg value="postgres" name="username"/>
+        <constructor-arg value="10" name="poolSize"/>
+        <constructor-arg type="java.util.List" name="args" >
+            <list>
+                <value>--arg1=value1</value>
+                <value>--arg1=value2</value>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="properties">
+            <null/>
+        </constructor-arg>
+
+        <property name="properties">
+            <map>
+                <entry key="url" value="postgresurl"></entry>
+                <entry key="password" value="123"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="companyRepository" class="com.spring.database.CompanyRepository" factory-method="of">
+        <constructor-arg ref="pool"/>
+    </bean>
+</beans>

@@ -7,9 +7,11 @@
                             http://www.springframework.org/schema/context
                             http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--    создаёт бин с application.properties автоматически-->
+    <context:annotation-config/>
     <context:property-placeholder location="classpath:application.properties"/>
 
+    <bean class="com.ilya.spring.bpp.TransactionBeanPostProcessor"/>
+    <bean class="com.ilya.spring.bpp.InjectBeanPostProcessor"/>
     <bean class="com.ilya.spring.beanfactorypostprocessors.LogBeanFactoryPostProcessor"/>
     <bean class="com.ilya.spring.beanfactorypostprocessors.VerifyPropertyBeanFactoryPostProcessor"/>
 
@@ -17,12 +19,10 @@
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
-    <bean id="pool" name="p1,p2,p3" class="com.ilya.spring.database.pool.ConnectionPool"
-        init-method="init"
-        scope="singleton">
+    <bean id="pool" name="p1,p2,p3" class="com.ilya.spring.database.pool.ConnectionPool" scope="singleton">
         <constructor-arg value="${db.username}" name="username"/>
         <constructor-arg value="${db.pool.size}" name="poolSize"/>
-        <constructor-arg type="java.util.List" name="args" >
+        <constructor-arg type="java.util.List" name="args">
             <list>
                 <value>--arg1=value1</value>
                 <value>--arg1=value2</value>
@@ -34,8 +34,8 @@
 
         <property name="properties">
             <map>
-                <entry key="url" value="postgresurl"></entry>
-                <entry key="password" value="123"></entry>
+                <entry key="url" value="postgresurl"/>
+                <entry key="password" value="123"/>
                 <entry key="driver" value-ref="driver"/>
                 <entry key="test" value="#{driver.length() > 10}"/>
                 <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>
@@ -44,7 +44,5 @@
         </property>
     </bean>
 
-    <bean id="companyRepository" class="com.ilya.spring.database.CompanyRepository" factory-method="of">
-        <constructor-arg ref="pool"/>
-    </bean>
+    <bean id="companyRepository" class="com.ilya.spring.database.CompanyRepository"/>
 </beans>

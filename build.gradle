@@ -12,7 +12,7 @@ repositories {
 dependencies {
     implementation 'org.springframework:spring-core:6.2.1'
     implementation 'org.springframework:spring-context:6.2.1'
-
+    implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
 
     testImplementation 'org.junit:junit-bom:5.9.1'
     testImplementation 'org.junit.jupiter:junit-jupiter'

@@ -6,6 +6,7 @@ import com.ilya.spring.database.entity.Company;
 import com.ilya.spring.database.pool.ConnectionPool;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public class CompanyRepository implements CrudRepository<Company, Integer> {
     private final List<ConnectionPool> pools;
     private final Integer poolSize;
 
-    public CompanyRepository(ConnectionPool pool,
+    public CompanyRepository(@Qualifier("pool2") ConnectionPool pool,
                              List<ConnectionPool> pools,
                              @Value("${db.pool.size}") Integer poolSize) {
         this.pool = pool;

@@ -2,28 +2,22 @@ package com.ilya.spring.database.pool;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionPool {
+@Component("pool")
+public class ConnectionPool{
     private final String username;
     private final Integer poolSize;
-    private final List<Object> args;
-    private Map<String, Object> properties;
 
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
-    }
-
-    public ConnectionPool(String username,
-                          Integer poolSize,
-                          List<Object> args,
-                          Map<String, Object> properties) {
+    public ConnectionPool(@Value("${db.username}") String username,
+                          @Value("${db.pool.size}") Integer poolSize) {
         this.username = username;
         this.poolSize = poolSize;
-        this.args = args;
-        this.properties = properties;
     }
 
     @PostConstruct

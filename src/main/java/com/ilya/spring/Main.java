@@ -8,17 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
     public static void main(String[] args) {
         try (var context = new ClassPathXmlApplicationContext("application.xml")) {
-            var connectionPool = context.getBean("p1", ConnectionPool.class);
-            System.out.println("p1: " + connectionPool);
-            var connectionPool2 = context.getBean("p2", ConnectionPool.class);
-            System.out.println("p2: " + connectionPool2);
-            var connectionPool3 = context.getBean("p3", ConnectionPool.class);
-            System.out.println("p3: " + connectionPool3);
 
-            System.out.println();
-
-            var connectionPool4 = context.getBean("p1", ConnectionPool.class);
-            System.out.println("p1: " + connectionPool4);
+            var connectionPool = context.getBean("pool", ConnectionPool.class);
+            System.out.println("pool: " + connectionPool);
 
             System.out.println();
 

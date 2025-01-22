@@ -14,13 +14,6 @@ import org.springframework.stereotype.Component;
 @Import(WebConfiguration.class)
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.ilya.spring",
-        useDefaultFilters = false,
-        includeFilters = {
-            @Filter(type = FilterType.ANNOTATION, value = Component.class),
-            @Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-            @Filter(type = FilterType.REGEX, pattern = "com\\..+Repository")
-        })      // чтобы анноташки @Component, @Service и т.д. работали
 public class ApplicationConfiguration {
         @Bean("pool2")
         @Scope(BeanDefinition.SCOPE_SINGLETON)
